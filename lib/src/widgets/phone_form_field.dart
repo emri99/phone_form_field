@@ -6,6 +6,7 @@ import 'package:phone_form_field/src/widgets/base_phone_form_field.dart';
 import 'package:phone_numbers_parser/phone_numbers_parser.dart';
 
 typedef PhoneController = ValueNotifier<PhoneNumber?>;
+typedef PhoneNumberInputValidator = String? Function(PhoneNumber? phoneNumber);
 
 class PhoneFormField extends StatefulWidget {
   final PhoneNumber? initialValue;
@@ -23,6 +24,7 @@ class PhoneFormField extends StatefulWidget {
   final InputDecoration decoration;
   final AutovalidateMode autovalidateMode;
   final bool lightParser;
+  final PhoneNumberInputValidator? validator;
 
   PhoneFormField({
     Key? key,
@@ -41,7 +43,10 @@ class PhoneFormField extends StatefulWidget {
     this.decoration = const InputDecoration(border: UnderlineInputBorder()),
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.lightParser = false,
-  }) : super(key: key);
+    this.validator,
+  }) : super(
+          key: key,
+        );
 
   @override
   _PhoneFormFieldState createState() => _PhoneFormFieldState();
@@ -127,6 +132,7 @@ class _PhoneFormFieldState extends State<PhoneFormField> {
 
   String? _validate(PhoneNumberInput? phoneNumberInput) {
     final phoneNumber = _convertInputToPhoneNumber(phoneNumberInput);
+    if (widget.validator != null) return widget.validator!.call(phoneNumber);
     if (phoneNumber == null) return null;
     if (phoneNumber.nsn.isEmpty) return null;
     final isValid = parser.validate(phoneNumber, widget.phoneNumberType);

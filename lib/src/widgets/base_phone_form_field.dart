@@ -225,8 +225,8 @@ class _BasePhoneFormFieldState extends FormFieldState<PhoneNumberInput> {
 
   // // which error text to show
   String? getErrorText() {
-    if (!hasError) return null;
-    return PhoneFieldLocalization.of(context)?.translate(widget.errorText) ??
-        errorText;
+    if (errorText != null) {
+      return PhoneFieldLocalization.of(context)?.translate(errorText!);
+    }
   }
 }
