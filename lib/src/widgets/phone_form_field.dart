@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 import 'package:phone_form_field/src/models/phone_number_input.dart';
+import 'package:phone_form_field/src/validator/phone_validator.dart';
 import 'package:phone_form_field/src/widgets/base_phone_form_field.dart';
 import 'package:phone_numbers_parser/phone_numbers_parser.dart';
 
 typedef PhoneController = ValueNotifier<PhoneNumber?>;
-typedef PhoneNumberInputValidator = String? Function(PhoneNumber? phoneNumber);
 
 class PhoneFormField extends StatefulWidget {
   final PhoneNumber? initialValue;
