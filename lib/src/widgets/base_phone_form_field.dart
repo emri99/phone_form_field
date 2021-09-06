@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:phone_form_field/src/localization/phone_field_localization.dart';
 import 'package:phone_form_field/src/models/phone_number_input.dart';
 
 import '../models/country.dart';
@@ -206,7 +205,7 @@ class _BasePhoneFormFieldState extends FormFieldState<PhoneNumberInput> {
 
   InputDecoration _getEffectiveDecoration() {
     return widget.decoration.copyWith(
-      errorText: getErrorText(),
+      errorText: errorText,
       prefix: _getDialCodeChip(),
     );
   }
@@ -221,12 +220,5 @@ class _BasePhoneFormFieldState extends FormFieldState<PhoneNumberInput> {
         flagSize: 20,
       ),
     );
-  }
-
-  // // which error text to show
-  String? getErrorText() {
-    if (!hasError) return null;
-    return PhoneFieldLocalization.of(context)?.translate(widget.errorText) ??
-        errorText;
   }
 }
